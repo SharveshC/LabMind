@@ -62,7 +62,10 @@ def test_memory():
     
     # Cleanup
     if os.path.exists("test_memory.db"):
-        os.remove("test_memory.db")
+        try:
+            os.remove("test_memory.db")
+        except PermissionError:
+            pass # Windows file lock issue with SQLite, can be ignored in testing
 
 if __name__ == "__main__":
     test_memory()
